@@ -58,6 +58,10 @@ development:
 test:
   <<: *default
   database: breadboard_test
+  username: <%= ENV['PGUSER'] %>
+  password: <%= ENV['PGPASS'] %>
+  host: <%= ENV['PGHOST'] %>
+  port: <%= ENV['PGPORT'] %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -81,6 +85,4 @@ test:
 #
 production:
   <<: *default
-  database: breadboard_production
-  username: breadboard
-  password: <%= ENV['BREADBOARD_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>

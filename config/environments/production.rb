@@ -1,5 +1,8 @@
 require "active_support/core_ext/integer/time"
 
+require Rails.root.join('config', 'smtp')
+require Rails.root.join('config', 'cache_store')
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -56,13 +59,17 @@ Rails.application.configure do
   config.log_tags = [ :request_id ]
 
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  config.cache_store = :mem_cache_store, ENV['MEMCACHIER_SERVERS'].to_s.split(','), CACHE_STORE_SETTINGS
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "breadboard_production"
 
   config.action_mailer.perform_caching = false
+  
+  config.action_mailer.default_url_options = { host: ENV.fetch('HOST', "#{ENV['HEROKU_APP_NAME']}.herokuapp.com") }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = SMTP_SETTINGS
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
