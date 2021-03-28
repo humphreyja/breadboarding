@@ -4,6 +4,6 @@
   <p>You won't be able to recover it once it is deleted</p>
   <%= form_for @breadboard, method: :delete do |f| %>
     <%= link_to 'Nevermind', edit_breadboard_path(@breadboard), class: 'secondary' %>
-    <%= f.submit 'Put in trash', class: 'primary' %>
+    <%= f.submit 'Put in trash', class: 'main' %>
   <% end %>
 </div>

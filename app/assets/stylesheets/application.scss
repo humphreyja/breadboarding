@@ -504,7 +504,7 @@ details.popup {
     justify-content: center;
   }
   
-  .primary, .secondary {
+  .main, .secondary {
     display: inline-block;
     text-decoration: none;
     padding: 0.4em 1em;
@@ -519,7 +519,7 @@ details.popup {
     cursor: pointer;
   }
   
-  .primary {
+  .main {
     background: var(--color-primary);
     color: var(--color-primary-opposite);
   }

@@ -1,0 +1,26 @@
+<% cache breadboard do %>
+  <div class="breadboard">
+    <header>
+      <%= link_to breadboard.name, edit_breadboard_path(breadboard) %>
+    </header>
+    <%- if breadboard.places.any? %>
+    <div class="preview">
+      <% breadboard.places.limit(2).each do |place| %>
+        <div class="panel">
+          <h4><%= place.name %></h4>
+          <ul>
+            <%- if place.affordances.none? %>
+              <li class="empty">No affordances</li>
+            <% end %>
+            <% place.affordances.limit(3).each do |affordance| %>
+              <li><%= affordance.name %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+    <% else %>
+        <h4 class="empty">Empty breadboard</h4>
+    <% end %>
+  </div>
+<% end %>
