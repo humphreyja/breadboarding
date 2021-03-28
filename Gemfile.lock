@@ -79,6 +79,7 @@ GEM
     childprocess (3.0.0)
     concurrent-ruby (1.1.8)
     crass (1.0.6)
+    dalli (2.7.10)
     erubi (1.10.0)
     ffi (1.15.0)
     globalid (0.4.2)
@@ -100,6 +101,7 @@ GEM
     mail (2.7.1)
       mini_mime (>= 0.1.1)
     marcel (1.0.0)
+    memcachier (0.0.2)
     method_source (1.0.0)
     mini_mime (1.0.3)
     minitest (5.14.4)
@@ -214,9 +216,11 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
+  dalli
   hotwire-rails
   jbuilder (~> 2.7)
   listen (~> 3.3)
+  memcachier
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 6.1.3)
