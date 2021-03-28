@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root to: "pages#home"
   
+  get :terms_of_service, to: 'pages#terms_of_service'
+  get :privacy_policy, to: 'pages#privacy_policy'
+  
   resource :sign_up, only: [:show] do
     get :complete, on: :member
     get :not_happening, on: :member

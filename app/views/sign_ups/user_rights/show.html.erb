@@ -4,15 +4,21 @@
 	<%= form_for(@user, url: sign_ups_user_rights_path) do |f| %>
 		<%= f.hidden_field :task, value: @task %>
 		<header>
-			<h1>The rights to <em style="text-decoration: underline">your</em> data</h1>
+			<h1>Terms and Privacy</h1>
 		</header>
 		
 		<div>
+      <p>
+        By clicking "accept", you agree to our <%= link_to 'terms of service', terms_of_service_path, target: '_blank' %>. Please take a second to 
+        read them. Basically don't do bad stuff. 
+      </p>
+      
+      <h2>The rights to <em>your</em> data</h2>
 			<p>
-				TLDR; Your data is your data. We do not sell it, give it to anyone, or monetize from it in any way.
+				Your data is your data. We do not sell it, give it to anyone, or monetize from it in any way.
         Additionally we do not use any sort of 3rd party analytics.
         <br /> 
-        You can read more about this in our <a href="/privacy-policy" target="_blank">privacy policy.</a>
+        You can read more about this in our <%= link_to 'privacy policy', privacy_policy_path, target: '_blank' %>.
 			</p>
 		</div>
 		

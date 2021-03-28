@@ -54,6 +54,20 @@ body {
   background-position: calc(50% - 75px) 0%;
 }
 
+article {
+  max-width: var(--contain-width);
+  text-align: justify;
+  margin: auto;
+  padding-bottom: 3rem;
+  
+  h3 {
+    font-weight: bold;
+    margin-top: 2rem;
+  }
+  
+  a { font-weight: bold;}
+}
+
 h1 { font-size: var(--font-size-xx-large) }
 h2 { font-size: var(--font-size-x-large) }
 h3 { font-size: var(--font-size-large) }
@@ -71,6 +85,17 @@ h1, h2, h3, h4, h5, h6, p {
 
 h1.error {
   color: var(--color-red);
+}
+
+section.legal {
+  font-size: var(--font-size-x-small);
+  opacity: 0.8;
+  margin-top: 10rem;
+  
+  h4 {
+    font-weight: bold;
+    font-family: var(--heavy-font-family);
+  }
 }
 
 a, button, input[type="submit"] {
