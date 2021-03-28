@@ -1,0 +1,27 @@
+<div class="contain slide-in">
+	<h1>Reset your password</h1>
+	<%= form_for(@user, url: identities_password_reset_path, method: :patch) do |f| %>
+		<%= f.hidden_field :token, value: @token %>
+		<div class="primary-input">
+			<%- if f.object.errors.added?(:password, :blank) %>
+				<%= f.label :password, "Please enter a new password", class: 'error' %>
+			<%- elsif f.object.errors.added?(:password, :too_short) %>
+				<%= f.label :password, "We need your password to be a little bit longer so we can keep your account safe", class: 'error' %>
+			<% else %>
+				<%= render "shared/form_errors", object: f.object %>
+			  <%= f.label :password, "Enter your new password", class: f.object.errors.any? ? 'error' : '' %>
+			<% end %>
+			
+		  <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
+		</div>
+
+		<div class="primary-input">
+		  <%= f.label :password_confirmation, "Confirm your password", class: f.object.errors.any? ? 'error' : '' %>
+		  <%= f.password_field :password_confirmation, autocomplete: "new-password"  %>
+		</div>
+		
+		<div class="actions">
+			<%= f.submit 'Reset my password' %>
+		</div>
+	<% end %>
+</div>

@@ -1,0 +1,23 @@
+<div class="contain <%= @registration.errors.any? ? '' : 'slide-in' %>">
+  <%= image_tag 'logo.svg', class: 'logo small' %>
+
+	<%= form_for(@registration, url: sign_ups_email_address_path) do |f| %>
+		<div class="input block">
+			<%- if f.object.errors.added?(:email, :blank) %>
+				<%= f.label :email, "We need an email address to set up your account", class: 'error' %>
+			<%- elsif f.object.errors.added?(:email, :taken) %>
+				<%= f.label :email, "Looks like that email address is already taken, do you have another one?", class: 'error' %>
+			<% else %>
+				<%= render "shared/form_errors", object: f.object %>
+			  <%= f.label :email, "What email address would you like to use?" %>
+			<% end %>
+			
+		  
+		  <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+		</div>
+
+		<%= f.submit 'Next', class: 'cta' %>
+    <br />
+		<small>1 of 3</small>
+	<% end %>
+</div>

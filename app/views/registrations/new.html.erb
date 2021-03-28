@@ -1,0 +1,50 @@
+<h2>Sign up for a <%= app_name %> account</h2>
+<hr />
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= render "shared/form_errors", object: resource %>
+
+<div class="field">
+  <div class="input">
+    <%= f.label :email, '@' %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'Email address' %>
+  </div>
+</div>
+<br />
+
+<div class="field">
+  <div class="input">
+    <%= f.label :password do %>
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="key" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+      <path fill="currentColor" d="M512 176.001C512 273.203 433.202 352 336 352c-11.22 0-22.19-1.062-32.827-3.069l-24.012 27.014A23.999 23.999 0 0 1 261.223 384H224v40c0 13.255-10.745 24-24 24h-40v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24v-78.059c0-6.365 2.529-12.47 7.029-16.971l161.802-161.802C163.108 213.814 160 195.271 160 176 160 78.798 238.797.001 335.999 0 433.488-.001 512 78.511 512 176.001zM336 128c0 26.51 21.49 48 48 48s48-21.49 48-48-21.49-48-48-48-48 21.49-48 48z" class=""></path>
+    </svg>
+    <% end %>
+    <%= f.password_field :password, autocomplete: "new-password", placeholder: 'Password' %>
+  </div>
+</div>
+
+<div class="field">
+  <div class="input">
+    <%= f.label :password_confirmation do %>
+    <%= render 'shared/check' %>
+    <% end %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: 'Verify Password' %>
+  </div>
+</div>
+
+<div class="actions">
+  <%= button_tag(type: 'submit') do %>
+  Sign Up
+  <%= render 'shared/arrow_right' %>
+  <% end %>
+  <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %>
+
+  <hr />
+
+  <h3>Already have an account?</h3>
+  <%= link_to "Sign in to your account", new_session_path(resource_name) %>
+
+</div>
+<% end %>
+
+<%# render "devise/shared/links" %>

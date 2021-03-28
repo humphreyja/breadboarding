@@ -1,0 +1,26 @@
+<div class="slide-in contain">
+  <%= image_tag 'logo.svg', class: 'logo small' %>
+
+	<%= form_for(@user, url: sign_ups_user_rights_path) do |f| %>
+		<%= f.hidden_field :task, value: @task %>
+		<header>
+			<h1>The rights to <em style="text-decoration: underline">your</em> data</h1>
+		</header>
+		
+		<div>
+			<p>
+				TLDR; Your data is your data. We do not sell it, give it to anyone, or monetize from it in any way.
+        Additionally we do not use any sort of 3rd party analytics.
+        <br /> 
+        You can read more about this in our <a href="/privacy-policy" target="_blank">privacy policy.</a>
+			</p>
+		</div>
+		
+		<div class="actions">
+			<%= f.submit 'I accept', class: 'cta' %>
+		</div>
+		<%- if @task == 'sign_up' %>
+			<small>3 of 3</small>
+		<% end %>
+	<% end %>
+</div>

@@ -1,0 +1,53 @@
+<% content_for :back do %>
+  <%= link_to 'Breadboards', breadboards_path, class: 'primary back' %>
+<% end %>
+
+<%= turbo_frame_tag "breadboard.#{@breadboard.id}" do %>
+  <details class="popup editor-help" data-controller="popup" data-action="click@window->popup#closeOnClickOutside">
+    <summary>
+      <%= image_tag('help.svg') %>
+    </summary>
+    <div class="right up">
+      <h3>Keyboard Shortcuts</h3>
+      <ul>
+        <li><span>SHIFT</span> + Click to add connection. Click on an affordance, then click on a place. Hold shift the entire time</small>
+        <li>Hit <span>ENTER</span> in an input to create a new affordance</li>
+        <li>Hit <span>BACKSPACE</span> twice in an empty input to delete an affordance or place</li>
+      </ul>
+      <br/>
+      <p>Everything is editable and autosaves!</p>
+    </div>
+  </details>
+  
+  <%= link_to 'Put in trash', delete_request_breadboard_path(@breadboard), class: 'breadboard-delete', data: { 'turbo-frame' => '_top' } %>
+
+
+  <%= form_for @breadboard, data: { controller: 'auto-form' } do |f| %>
+
+    <h1>
+      <div data-controller="growing-input">
+        <span data-growing-input-target="helper"><%= f.object.name %></span>
+        <%= f.text_field :name, placeholder: 'name', style: 'min-width: 350px', data: { 'action' => 'growing-input#growHelper auto-form#debounceSubmit'} %>
+      </div>
+    </h1>
+    
+    <%= f.submit data: { 'auto-form-target' => 'submit' } %>
+  
+  <% end %>
+  <%= render 'updated_at', breadboard: @breadboard %>
+
+  <div class="editor-container">
+    <div class="editor" data-controller="drawing" data-drawing-actionmode-value="false" data-action="keydown@window->drawing#shiftKeyIsPressed keyup@window->drawing#shiftKeyIsReleased">
+      <% 8.times.each do |i| %>
+    
+        <%- if place = @breadboard.places.find_by(position: i + 1) %>
+          <%= render 'places/form', place: place %>
+        <% else %>
+          <%= render 'places/add_new', position: i + 1 %>
+        <% end %>
+      
+      <% end %>
+    </div>
+  </div>
+  
+<% end %>

@@ -1,0 +1,26 @@
+<% autofocus ||= false %>
+<div data-controller="form-collection arrow" data-arrow-place-position-value="<%= f.object.place.position %>" data-action="input:resize@window->arrow#redrawArrow click->arrow#activateConnection keyup@window->arrow#terminateConnectPreview place:over@window->arrow#previewConnectToPlace place:click@window->arrow#completeConnection place:removed@window->arrow#removeConnectionIfRemoved">
+  <%= f.hidden_field :_destroy, value: false %>
+  <%= f.hidden_field :connection_position, data: { 'arrow-target' => 'input' } %>
+  <div data-controller="growing-input">
+    <span data-growing-input-target="helper" data-arrow-target="spacer" style="max-width: 200px"><%= f.object.name %></span>
+    <%= f.text_area :name, autofocus: autofocus, data: { controller: 'empty', action: 'growing-input#growHelper auto-form#debounceSubmit input:empty->has-many#removeFromContainer blur->empty#emitIfEmpty keyup->empty#emitIfEmptyOnDoubleBackSpace keydown->input-navigation#navigateOnEnter', 'input-navigation-target' => 'input' } %>
+  </div>
+  
+  
+  <button type="button" data-action="click->has-many#removeFromContainer click->auto-form#debounceSubmit" class="delete">
+    –
+  </button>
+  
+  <%- if f.object.connection.present? %>
+  <div data-arrow-target="arrow" data-connected="true" class="arrow"></div>
+  <% end %>
+</div>
+
+<% unless f.object.persisted? %>
+  <input type="hidden" id="place_affordances_attributes_INDEX_id">
+<% end %>
+
+ 
+
+

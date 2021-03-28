@@ -1,0 +1,42 @@
+<%= turbo_frame_tag "place.#{place.position}" do %>
+  <div class="component" data-controller="mousecontrol placedestroy" data-mousecontrol-position-value="<%= place.position %>" data-placedestroy-position-value="<%= place.position %>" data-action="mouseover->mousecontrol#emitMouseOver click->mousecontrol#emitMouseClick input:empty->placedestroy#removePlace">
+    <%- if place.errors.any? %>
+      <small class="error"><%= place.errors.full_messages.first %></small>
+    <% end %>
+    <%= form_for [@breadboard, place], data: { controller: 'auto-form input-navigation', action: 'turbo:submit-end->auto-form#removeDestroyedItems form:submit->auto-form#debounceSubmit' } do |f| %>
+      <div data-controller="has-many" data-action="has-many:removed->auto-form#debounceSubmit has-many:append->has-many#insertTemplateIntoContainer">
+        <h3 data-controller="growing-input">
+          <span data-growing-input-target="helper"><%= f.object.name %></span>
+          <%= f.text_field :name, placeholder: 'name', data: { controller: 'empty', action: 'growing-input#growHelper auto-form#debounceSubmit keydown->input-navigation#navigateOnEnter blur->empty#emitIfEmpty keyup->empty#emitIfEmptyOnDoubleBackSpace', 'input-navigation-target' => 'input' } %>
+        </h3>
+
+        <div>
+          <ul class="affordances" data-has-many-target="container">
+            <% f.object.affordances.each.map do |affordance| %>
+              <li>
+                <%= f.fields_for :affordances, affordance do |ff| %>
+                  <%= render 'places/affordance', f: ff %>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        
+          <template data-has-many-target="template">
+            <li>
+              <%= f.fields_for :affordances, f.object.affordances.new, include_id: false, child_index: 'INDEX' do |ff| %>
+                <%= render 'places/affordance', f: ff, autofocus: true %>
+              <% end %>
+            </li>
+          </template>
+        </div>
+      </div>
+      <%= f.hidden_field :position %>
+      <%= f.submit "Add Place", data: { 'auto-form-target' => 'submit' } %>
+    <% end %>
+    
+    <%= form_for [@breadboard, place], url: breadboard_place_path(@breadboard, place.id || 'new'), method: :delete do |f| %>
+      <%= f.hidden_field :position %>
+      <%= f.submit "Remove Place", data: { 'placedestroy-target' => 'submit' } %>
+    <% end %>
+  </div>
+<% end %>

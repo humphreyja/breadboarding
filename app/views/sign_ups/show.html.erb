@@ -1,0 +1,20 @@
+<div class="contain">
+  <%= image_tag 'logo.svg', class: 'logo small' %>
+
+	<h1>A few exceptions!</h1>
+
+	<div>
+		<p>
+		  Currently we are only allowing new users for existing domains in our system. 
+      <em>If someone from your company is already in our system, then sign right up!</em>
+		</p>
+    <p>
+      If you are a new company looking to try us out, reach out to me at <%= link_to '@remotejake', 'https://twitter.com/remotejake', target: '_blank' %> on twitter and 
+      I can get you signed up.
+    </p>
+    
+    <br />
+		<%= link_to "My company is in the system, let's get started", new_sign_ups_email_address_path, class: 'cta' %>
+	</div>
+</div>
+

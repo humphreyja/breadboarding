@@ -1,0 +1,10 @@
+<%= turbo_stream.replace "updated_at" do %>
+  <%= render 'breadboards/updated_at', breadboard: @breadboard %>
+<% end %>
+
+<% @new_keys.each do |key, id| %>
+  <%= turbo_stream.replace "place_affordances_attributes_#{key}_id" do %>
+    <input type="hidden" value="<%= id %>" name="place[affordances_attributes][<%= key %>][id]" id="place_affordances_attributes_<%= key %>_id">
+  <% end %>
+<% end %>
+  

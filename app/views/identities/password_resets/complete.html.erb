@@ -1,0 +1,16 @@
+<%= content_for :splash do %>
+ <div class="bg-content"><%= render 'shared/splash' %></div>
+<% end %>
+
+<div class="sheet contain">
+	<header>
+		<h1>Your password was reset!</h1>
+	</header>
+
+	<div>
+		<p>As easy as A, B, C...</p>
+
+		<%= link_to "Take me to my account!", authenticated_root_path, class: 'primary' %>
+	</div>
+</div>
+

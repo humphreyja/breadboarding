@@ -1,0 +1,8 @@
+<%= turbo_frame_tag "place.#{position}" do %>
+  <div class="add-component">
+    <%- if @place && @place.errors.any? %>
+      <small class="error"><%= @place.errors.full_messages.first %></small>
+    <% end %>
+    <%= link_to 'Add Place', new_breadboard_place_path(@breadboard, position: position) %>
+  </div>
+<% end %>

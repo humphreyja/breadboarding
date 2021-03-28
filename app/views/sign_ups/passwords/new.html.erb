@@ -1,0 +1,27 @@
+<div class="contain <%= @registration.errors.any? ? '' : 'slide-in' %>">
+  <%= image_tag 'logo.svg', class: 'logo small' %>
+  
+	<%= form_for(@registration, url: sign_ups_password_path) do |f| %>
+		<div class="input block">
+			<%- if f.object.errors.added?(:password, :blank) %>
+				<%= f.label :password, "We need a password to set up your account", class: 'error' %>
+			<%- elsif f.object.errors.added?(:password, :too_short) %>
+				<%= f.label :password, "We need your password to be a little bit longer so we can keep your account safe", class: 'error' %>
+			<% else %>
+				<%= render "shared/form_errors", object: f.object %>
+			  <%= f.label :password, "Enter your password", class: f.object.errors.any? ? 'error' : '' %>
+			<% end %>
+			
+		  <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
+		</div>
+
+		<div class="input block">
+		  <%= f.label :password_confirmation, "Confirm your password", class: f.object.errors.any? ? 'error' : '' %>
+		  <%= f.password_field :password_confirmation, autocomplete: "new-password"  %>
+		</div>
+		
+		<%= f.submit 'Next', class: 'cta' %>
+    <br />
+		<small>2 of 3</small>
+	<% end %>
+</div>
