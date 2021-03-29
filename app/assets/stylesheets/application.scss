@@ -144,6 +144,8 @@ input[type="submit"].primary {
   padding: 0.3em 1em;
   font-size: var(--font-size-medium);
   border-radius: 2px;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .editor-container {
