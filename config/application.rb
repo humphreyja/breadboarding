@@ -1,5 +1,5 @@
 require_relative "boot"
-require "cloudflare_proxy"
+require Rails.root.join('config', 'cloudflare_proxy')
 
 require "rails/all"
 
