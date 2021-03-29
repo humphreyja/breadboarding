@@ -7,7 +7,7 @@
       <div data-controller="has-many" data-action="has-many:removed->auto-form#debounceSubmit has-many:append->has-many#insertTemplateIntoContainer">
         <h3 data-controller="growing-input">
           <span data-growing-input-target="helper"><%= f.object.name %></span>
-          <%= f.text_field :name, placeholder: 'name', data: { controller: 'empty', action: 'growing-input#growHelper auto-form#debounceSubmit keydown->input-navigation#navigateOnEnter blur->empty#emitIfEmpty keyup->empty#emitIfEmptyOnDoubleBackSpace', 'input-navigation-target' => 'input' } %>
+          <%= f.text_field :name, placeholder: 'name', autofocus: @autofocus || false, data: { controller: 'empty', action: 'growing-input#growHelper auto-form#debounceSubmit keydown->input-navigation#navigateOnEnter blur->empty#emitIfEmpty keyup->empty#emitIfEmptyOnDoubleBackSpace', 'input-navigation-target' => 'input' } %>
         </h3>
 
         <div>

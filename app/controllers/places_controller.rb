@@ -8,8 +8,9 @@ class PlacesController < ApplicationController
   
   def new
     @breadboard = Current.user.breadboards.find(params[:breadboard_id])
-    @place = @breadboard.places.new(position: params[:position])
-    @place.affordances.build(name: 'new affordance')
+    @place = @breadboard.places.new(name: 'new place', position: params[:position])
+    @place.save
+    @autofocus = true
   end
   
   def edit
@@ -24,11 +25,11 @@ class PlacesController < ApplicationController
     
     new_ids = @place.affordances.pluck(:id)
     @new_keys = {}
-    params[:place][:affordances_attributes].each do |affordance_key, affordance|
+    params[:place][:affordances_attributes] || [].each do |affordance_key, affordance|
       new_ids -= [affordance[:id].to_i] if affordance[:id].present?
     end
         
-    params[:place][:affordances_attributes].each do |affordance_key, affordance|
+    params[:place][:affordances_attributes] || [].each do |affordance_key, affordance|
       if affordance[:id].nil?
         found_id = @place.affordances.where(id: new_ids).find_by(name: affordance[:name])&.id
         @new_keys[affordance_key] = found_id if found_id
@@ -45,6 +46,7 @@ class PlacesController < ApplicationController
     @breadboard = Current.user.breadboards.find(params[:breadboard_id])
     @place = @breadboard.places.new(place_params)
     if @place.save
+      @autofocus = true
       render :edit
     else
       render :new
