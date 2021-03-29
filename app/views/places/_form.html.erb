@@ -1,13 +1,13 @@
 <%= turbo_frame_tag "place.#{place.position}" do %>
-  <div class="component" data-controller="mousecontrol placedestroy" data-mousecontrol-position-value="<%= place.position %>" data-placedestroy-position-value="<%= place.position %>" data-action="mouseover->mousecontrol#emitMouseOver click->mousecontrol#emitMouseClick input:empty->placedestroy#removePlace">
+  <div class="component" data-controller="mousecontrol placedestroy" data-mousecontrol-position-value="<%= place.position %>" data-placedestroy-position-value="<%= place.position %>" data-action="mouseover->mousecontrol#emitMouseOver click->mousecontrol#emitMouseClick input:place:empty->placedestroy#removePlace">
     <%- if place.errors.any? %>
       <small class="error"><%= place.errors.full_messages.first %></small>
     <% end %>
     <%= form_for [@breadboard, place], data: { controller: 'auto-form input-navigation', action: 'turbo:submit-end->auto-form#removeDestroyedItems form:submit->auto-form#debounceSubmit' } do |f| %>
-      <div data-controller="has-many" data-action="has-many:removed->auto-form#debounceSubmit has-many:append->has-many#insertTemplateIntoContainer">
+      <div data-controller="has-many" data-action="has-many:removed->auto-form#debounceSubmit has-many:append->has-many#insertTemplateIntoContainer has-many:will-remove->input-navigation#navigateBack">
         <h3 data-controller="growing-input">
           <span data-growing-input-target="helper"><%= f.object.name %></span>
-          <%= f.text_field :name, placeholder: 'name', autofocus: @autofocus || false, data: { controller: 'empty', action: 'growing-input#growHelper auto-form#debounceSubmit keydown->input-navigation#navigateOnEnter blur->empty#emitIfEmpty keyup->empty#emitIfEmptyOnDoubleBackSpace', 'input-navigation-target' => 'input' } %>
+          <%= f.text_field :name, placeholder: 'name', autofocus: @autofocus || false, data: { controller: 'empty', action: 'growing-input#growHelper auto-form#debounceSubmit keydown->input-navigation#navigateOnEnter blur->empty#emitIfEmptyPlace keyup->empty#emitIfEmptyPlaceOnDoubleBackSpace', 'input-navigation-target' => 'input' } %>
         </h3>
 
         <div>

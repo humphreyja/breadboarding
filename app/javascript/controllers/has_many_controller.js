@@ -15,20 +15,21 @@ export default class extends Controller {
     const containerItemTarget = this.findContainerItemFromTarget(event.target);
     if (!containerItemTarget) return;
     
+    const preevent = new CustomEvent('has-many:will-remove', {bubbles: true, cancelable: true, detail: { trigger: event.detail, target: event.target }});
+    this.element.dispatchEvent(preevent);
+    
     // look for _destroy attribute, you must render a hidden field for it to be destroyed
     const destroyField = containerItemTarget.querySelector('[name*=_destroy]');
     if (destroyField) {
       destroyField.value = 'true';
       containerItemTarget.style.display = "none";
       containerItemTarget.dataset.destroy = true;
-      
-      
-      const event = new CustomEvent('has-many:removed', {bubbles: true, cancelable: true});
-      this.element.dispatchEvent(event);      
+
+      const postevent = new CustomEvent('has-many:removed', {bubbles: true, cancelable: true});
+      this.element.dispatchEvent(postevent);
     } else {
       containerItemTarget.remove();
     }
-    
   }
   
   findContainerItemFromTarget(target) {

@@ -14,6 +14,12 @@ export default class extends Controller {
     }
   }
   
+  navigateBack(event) {
+    if (event.detail && event.detail.trigger === 'backspace') {
+      this.onEnterAndShiftKeyPressed(event.detail.target, event);
+    }
+  }
+  
   onEnterKeyPressed(target, event) {
     for (let i = 0; i < this.navigationTargets.length; i++) {
       if (this.navigationTargets[i] === target) {
@@ -37,6 +43,7 @@ export default class extends Controller {
       if (this.navigationTargets[i] === target) {
         if (i > 0) {
           this.navigationTargets[i - 1].focus();
+          this.navigationTargets[i - 1].selectionStart = this.navigationTargets[i - 1].selectionEnd = this.navigationTargets[i - 1].value.length;
         }
       }
     }
