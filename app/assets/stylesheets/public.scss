@@ -52,6 +52,7 @@ body {
   background-image: image-url("home-tile.png");
   background-size: 150px;
   background-position: calc(50% - 75px) 0%;
+  padding: 2rem;
 }
 
 article {
@@ -90,7 +91,8 @@ h1.error {
 section.legal {
   font-size: var(--font-size-x-small);
   opacity: 0.8;
-  margin-top: 10rem;
+  padding: 6rem 0;
+  display: block;
   
   h4 {
     font-weight: bold;
@@ -198,4 +200,11 @@ section {
       transform: translateX(0);
       opacity:1
   }
+}
+
+@media only screen and (max-width: 800px) {
+	:root {
+		--contain-width: 100%;
+    --font-size-base: 9px;
+	}
 }

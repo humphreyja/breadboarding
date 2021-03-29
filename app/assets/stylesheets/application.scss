@@ -153,8 +153,6 @@ input[type="submit"].primary {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    
-    
   }
 }
 
@@ -421,6 +419,9 @@ form {
       text-align: inherit;
       font-size: inherit;
       line-height: 1.4;
+      padding: 0;
+      border-radius: 0;
+      box-shadow: none;
     }
   }
   
