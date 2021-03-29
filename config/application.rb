@@ -1,4 +1,5 @@
 require_relative "boot"
+require "cloudflare_proxy"
 
 require "rails/all"
 
@@ -10,6 +11,8 @@ module Breadboarding
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
+    
+    config.middleware.use CloudflareProxy # Used for free ssl
 
     # Configuration for the application, engines, and railties goes here.
     #
