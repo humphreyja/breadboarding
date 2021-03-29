@@ -1,13 +1,11 @@
 require_relative "boot"
 
-
 require "rails/all"
+require_relative 'cloudflare_proxy'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-
-require Rails.root.join('config', 'cloudflare_proxy')
 
 module Breadboarding
   class Application < Rails::Application
