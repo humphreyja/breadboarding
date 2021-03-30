@@ -1,0 +1,26 @@
+<div data-controller="theme" id="theme_controller">
+  <header>Theme</header>
+  <div class="themes">
+    <%= form_for current_user, url: theme_path, method: :put, html: { class: "light#{current_user.light_theme? ? ' active' : ''}" }, data: { action: 'turbo:submit-end->theme#changeToLightTheme' } do |f| %>
+      <%= f.hidden_field :theme, value: 'light' %>
+      <button type="submit">
+        <%= image_tag 'theme-light.svg' %>
+        Light
+      </button>
+    <% end %>
+    <%= form_for current_user, url: theme_path, method: :put, html: { class: "dark#{current_user.dark_theme? ? ' active' : ''}" },data: { action: 'turbo:submit-end->theme#changeToDarkTheme' } do |f| %>
+      <%= f.hidden_field :theme, value: 'dark' %>
+      <button type="submit">
+        <%= image_tag 'theme-dark.svg' %>
+        Dark
+      </button>
+    <% end %>
+    <%= form_for current_user, url: theme_path, method: :put, html: { class: "system#{current_user.system_theme? ? ' active' : ''}" },data: { action: 'turbo:submit-end->theme#changeToSystemTheme' } do |f| %>
+      <%= f.hidden_field :theme, value: 'system' %>
+      <button type="submit">
+        <%= image_tag 'theme-system.svg' %>
+        Auto (System)
+      </button>
+    <% end %>
+  </div>
+</div>

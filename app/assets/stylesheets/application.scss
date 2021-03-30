@@ -551,6 +551,67 @@ details.popup {
   }
 }
 
+[data-controller="theme"] {
+  padding-bottom: 2rem;
+}
+
+[data-controller="theme"] header {
+  font-size: var(--font-size-small);
+}
+
+[data-controller="theme"] .themes {
+  display: flex;
+  flex-direction: row;
+  background: rgba(var(--rgb-primary), 0.05);
+  border-radius: 2px;
+  overflow: hidden;
+  margin: 10px 2px;
+  
+  .light, .dark, .system {
+    flex: 1;
+    text-align: center;
+    border-right: 1px solid rgba(var(--rgb-primary), 0.08);
+    font-size: var(--font-size-small);
+    
+    &:last-child {
+      border: 0;
+    }
+  }
+  
+  button {
+    color: inherit;
+    height: 25px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    padding-top: 25px;
+    appearance: none;
+    -webkit-appearance: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: transparent;
+    border: 0;
+  }
+  
+  .active {
+    background: rgba(var(--rgb-primary), 1);
+    color: white;
+    
+    & img {
+      filter: invert(100%);
+    }
+  }
+  
+  img {
+    width: 20px;
+    height: 20px;
+    margin-top: -16px;
+    padding-bottom: 2px;
+  }
+  
+}
+
 @media only screen and (max-width: 1100px) {  
   .editor-wrapper {
     padding-top: 6rem;
@@ -564,3 +625,16 @@ details.popup {
     --preview-alignment: center;
 	}
 }
+
+@media (prefers-color-scheme: dark) {
+ body.system-theme {
+   filter: invert(92%) brightness(100%) contrast(95%) saturate(74%) hue-rotate(172deg);
+   background-image: image-url("drawingboard-tile-dark.png");
+ }
+}
+
+body.dark-theme {
+  filter: invert(92%) brightness(100%) contrast(95%) saturate(74%) hue-rotate(172deg);
+  background-image: image-url("drawingboard-tile-dark.png");
+}
+

@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     resource :user_rights, only: [:show, :update]
   end
   
+  resource :theme, only: [:update]
+  
   get :sign_in, to: 'sessions#new'
   post :sign_in, to: 'sessions#create'
   delete :sign_out, to: 'sessions#destroy'

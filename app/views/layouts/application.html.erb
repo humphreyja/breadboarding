@@ -18,7 +18,7 @@
     <link rel="mask-icon" href="/favicon.svg" color="#000000">
   </head>
 
-  <body>
+  <body class="<%= current_user.theme %>-theme">
     <header>
       <div class="back-container">
         <%= yield :back %>
@@ -35,6 +35,8 @@
         <div class="left up">
           <h4>Signed in as <%= current_user.email %></h4>
           <br />
+          <%= render 'themes/theme_controller' %>
+          
           <%= form_for current_user, url: sign_out_path, method: :delete do |f| %>
             <%= f.submit 'Sign out?', class: 'primary' %>
           <% end %>
