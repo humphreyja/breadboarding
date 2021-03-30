@@ -21,18 +21,25 @@ class PlacesController < ApplicationController
   def update
     @breadboard = Current.user.breadboards.find(params[:breadboard_id])
     @place = @breadboard.places.find(params[:id])
-    @place.update(place_params)
     
-    new_ids = @place.affordances.pluck(:id)
     @new_keys = {}
-    params[:place][:affordances_attributes] || [].each do |affordance_key, affordance|
-      new_ids -= [affordance[:id].to_i] if affordance[:id].present?
-    end
-        
-    params[:place][:affordances_attributes] || [].each do |affordance_key, affordance|
-      if affordance[:id].nil?
-        found_id = @place.affordances.where(id: new_ids).find_by(name: affordance[:name])&.id
-        @new_keys[affordance_key] = found_id if found_id
+    @place.transaction do
+      @place.update!(place_params.except(:affordances_attributes))
+      affordances_params = place_params[:affordances_attributes] || {}
+      affordances_params.each do |affordance_key, affordance_attributes|
+        if affordance_attributes[:id]
+          affordance = @place.affordances.find_by(id: affordance_attributes[:id])
+          next if affordance.nil?
+          if affordance_attributes[:_destroy] == 'true'
+            affordance.destroy!
+          else
+            affordance.update!(affordance_attributes.except(:id, :_destroy)) unless affordance_attributes[:name].blank?
+          end
+        else
+          next if affordance_attributes[:name].blank?
+          new_affordance = @place.affordances.create!(affordance_attributes) 
+          @new_keys[affordance_key] = new_affordance.id
+        end
       end
     end
     
@@ -40,6 +47,10 @@ class PlacesController < ApplicationController
       format.turbo_stream { render :updated }
       format.html { render :edit }
     end
+  rescue ActiveRecord::RecordNotFound
+    @place = @breadboard.places.new(position: place_params[:position])
+    @position = @place.position
+    render :destroy
   end
   
   def create
@@ -67,7 +78,6 @@ class PlacesController < ApplicationController
     end
   rescue ActiveRecord::RecordNotFound
     @place = @breadboard.places.new(position: place_params[:position])
-    @place.affordances.build(name: 'new affordance')
     @position = @place.position
     render :destroy
   end

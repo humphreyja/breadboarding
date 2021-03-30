@@ -1,6 +1,5 @@
 <% autofocus ||= false %>
 <div data-controller="form-collection arrow" data-arrow-place-position-value="<%= f.object.place.position %>" data-action="input:resize@window->arrow#redrawArrow click->arrow#activateConnection keyup@window->arrow#terminateConnectPreview place:over@window->arrow#previewConnectToPlace place:click@window->arrow#completeConnection place:removed@window->arrow#removeConnectionIfRemoved">
-  <%= f.hidden_field :_destroy, value: false %>
   <%= f.hidden_field :connection_position, data: { 'arrow-target' => 'input' } %>
   <div data-controller="growing-input">
     <span data-growing-input-target="helper" data-arrow-target="spacer" style="max-width: 200px"><%= f.object.name %></span>
@@ -19,6 +18,9 @@
 
 <% unless f.object.persisted? %>
   <input type="hidden" id="place_affordances_attributes_INDEX_id">
+  <input type="hidden" id="place_affordances_attributes_INDEX_destroy">
+<% else %>
+    <%= f.hidden_field :_destroy, value: false %>
 <% end %>
 
  

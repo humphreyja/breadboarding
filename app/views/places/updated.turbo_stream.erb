@@ -6,5 +6,8 @@
   <%= turbo_stream.replace "place_affordances_attributes_#{key}_id" do %>
     <input type="hidden" value="<%= id %>" name="place[affordances_attributes][<%= key %>][id]" id="place_affordances_attributes_<%= key %>_id">
   <% end %>
+  <%= turbo_stream.replace "place_affordances_attributes_#{key}_destroy" do %>
+    <input value="false" type="hidden" name="place[affordances_attributes][<%= key %>][_destroy]" id="place_affordances_attributes_<%= key %>__destroy">
+  <% end %>
 <% end %>
   

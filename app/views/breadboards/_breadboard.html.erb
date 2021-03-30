@@ -2,6 +2,7 @@
   <div class="breadboard">
     <header>
       <%= link_to breadboard.name, edit_breadboard_path(breadboard) %>
+      <time>Updated <%= time_ago_in_words(breadboard.updated_at) %> ago</time>
     </header>
     <%- if breadboard.places.any? %>
     <div class="preview">
