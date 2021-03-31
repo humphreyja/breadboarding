@@ -137,6 +137,10 @@ h1, .thick {
   background-image: image-url("connection-bottom-down-right.svg");
 }
 
+[data-arrow-image-value="any-up-right"] .arrow {
+  background-image: image-url("connection-any-up-right.svg");
+}
+
 a.primary,
 input[type="submit"].primary {
   display: inline-block;
@@ -240,7 +244,13 @@ details.popup.editor-help {
   }
   
   *[data-controller="growing-input"] {
-    z-index: 1;
+    z-index: 100;
+  }
+  
+  li *[data-controller="growing-input"] {
+    padding: 4px 8px;
+    margin: -8px;
+    border-radius: 4px;
   }
   
   .component {
@@ -256,12 +266,6 @@ details.popup.editor-help {
     }
     
     .affordances {
-      
-      li {
-        padding: 4px 8px;
-        margin: -4px -8px;
-        border-radius: 4px;
-      }
       
       input[type="text"],
       textarea {
@@ -287,7 +291,7 @@ details.popup.editor-help {
   
   &[data-drawing-actionmode-value="true"] {
 
-    .affordances li {
+    .affordances li [data-controller="growing-input"] {
       cursor: pointer;
       transition: all 0.2s ease-out;
       

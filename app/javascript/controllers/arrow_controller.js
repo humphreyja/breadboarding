@@ -86,10 +86,13 @@ export default class extends Controller {
   
   getArrowDirection(connectToPosition) {
     if (this.placePositionValue < 4) {
-      if (connectToPosition == this.placePositionValue + 1) return 'right';
-      if (connectToPosition == this.placePositionValue + 5) return 'down_right';
+      if (connectToPosition === this.placePositionValue + 1) return 'right';
+      if (connectToPosition === this.placePositionValue + 5) return 'down_right';
     } else if (this.placePositionValue === 4 && connectToPosition === 5) {
       return 'wrap';
+    } else if (this.placePositionValue >= 5 && this.placePositionValue < 8) {
+      if (connectToPosition == this.placePositionValue + 1) return 'right';
+      if (this.placePositionValue - 3 === connectToPosition) return 'up_right';
     }
   }
   
@@ -109,6 +112,10 @@ export default class extends Controller {
       return true;
     case 'down_right':
       this.drawArrowDownRight(this.placePositionValue + 5);
+      return true;
+      break;
+    case 'up_right':
+      this.drawArrowUpRight(this.placePositionValue - 3);
       return true;
       break;
     case 'wrap':
@@ -161,7 +168,7 @@ export default class extends Controller {
       this.arrowTarget.style.height = arrowHeight + 'px';
       this.arrowTarget.style.marginBottom = ((arrowMarginTopBottom + arrowHeight) * -1) + 'px';
       
-      if (arrowHeight < 60) {
+      if (arrowHeight < 70) {
         this.imageValue = 'top-same-right';
       } else if (arrowHeight < 150) {
         if (arrowWidth < 100) {
@@ -180,7 +187,7 @@ export default class extends Controller {
     const boardWidth = 200;
     const gutterWidth = 90;
     const margin = 15;
-    const topMargin = 20;
+    const topMargin = 30;
     const connectionNode = document.getElementById('place.' + position);
     if (connectionNode) {
       
@@ -188,13 +195,13 @@ export default class extends Controller {
       const arrowWidth = gutterWidth + (boardWidth - arrowLeft);
       
       const arrowHeight = connectionNode.getBoundingClientRect().top - this.spacerTarget.getBoundingClientRect().top + topMargin;
-      const arrowMarginTop = (this.spacerTarget.getBoundingClientRect().height * -1) + topMargin;
+      const arrowMarginTop = (this.spacerTarget.getBoundingClientRect().height * -1) + 5;
     
       this.arrowTarget.style.marginLeft = arrowLeft + 'px';
       this.arrowTarget.style.width = arrowWidth + 'px';
       this.arrowTarget.style.marginTop = arrowMarginTop + 'px';
       this.arrowTarget.style.height = arrowHeight + 'px';
-      this.arrowTarget.style.marginBottom = ((arrowHeight + arrowMarginTop) * -1) + 'px';
+      this.arrowTarget.style.marginBottom = ((arrowHeight + arrowMarginTop + 4) * -1) + 'px';
       
       if (arrowHeight < 60) {
         this.imageValue = 'bottom-down-right';
@@ -203,6 +210,31 @@ export default class extends Controller {
       } else {
         this.imageValue = 'top-down-right';
       }
+    }
+  }
+  
+  drawArrowUpRight(position) {
+    this.createArrowTargetIfMissing();
+    const boardWidth = 200;
+    const gutterWidth = 90;
+    const margin = 15;
+    const topMargin = 20;
+    const connectionNode = document.getElementById('place.' + position);
+    if (connectionNode) {
+      
+      const arrowLeft = this.spacerTarget.getBoundingClientRect().width + margin;
+      const arrowWidth = gutterWidth + (boardWidth - arrowLeft);
+      
+      const arrowHeight = this.spacerTarget.getBoundingClientRect().top + topMargin - connectionNode.getBoundingClientRect().top;
+      const arrowMarginTop = ((arrowHeight + this.spacerTarget.getBoundingClientRect().height) * -1) + topMargin;
+    
+      this.arrowTarget.style.marginLeft = arrowLeft + 'px';
+      this.arrowTarget.style.width = arrowWidth + 'px';
+      this.arrowTarget.style.marginTop = arrowMarginTop + 'px';
+      this.arrowTarget.style.height = arrowHeight + 'px';
+      this.arrowTarget.style.marginBottom = ((arrowHeight + arrowMarginTop) * -1) + 'px';
+      
+      this.imageValue = 'any-up-right';
     }
   }
 }
