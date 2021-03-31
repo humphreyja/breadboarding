@@ -2,6 +2,8 @@
   <%= link_to 'Breadboards', breadboards_path, class: 'primary back' %>
 <% end %>
 
+<% content_for :title, 'Breadboard Editor' %>
+
 <%= turbo_frame_tag "breadboard.#{@breadboard.id}" do %>
   <details class="popup editor-help" data-controller="popup" data-action="click@window->popup#closeOnClickOutside">
     <summary>
