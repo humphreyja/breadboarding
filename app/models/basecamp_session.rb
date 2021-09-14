@@ -4,11 +4,11 @@ class BasecampSession < ApplicationRecord
   belongs_to :user
   
   def fetch_request_token_url
-    client.auth_code.authorize_url(type: 'web_server', redirect_uri: Rails.application.routes.url_helpers.basecamp_authorization_callback_url)
+    client.auth_code.authorize_url(type: 'web_server', redirect_uri: Rails.application.routes.url_helpers.basecamp_authorization_callback_url(secure: true))
   end
   
   def fetch_access_token!(verifier)
-    oauth_access_token = client.auth_code.get_token(verifier, type: 'web_server', redirect_uri: Rails.application.routes.url_helpers.basecamp_authorization_callback_url)
+    oauth_access_token = client.auth_code.get_token(verifier, type: 'web_server', redirect_uri: Rails.application.routes.url_helpers.basecamp_authorization_callback_url(secure: true))
     
     save_token_details(oauth_access_token)
   end
