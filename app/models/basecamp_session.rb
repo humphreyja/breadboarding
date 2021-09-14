@@ -4,11 +4,11 @@ class BasecampSession < ApplicationRecord
   belongs_to :user
   
   def fetch_request_token_url
-    client.auth_code.authorize_url(redirect_uri: Rails.application.routes.url_helpers.basecamp_authorization_callback_url)
+    client.auth_code.authorize_url(type: 'web_server', redirect_uri: Rails.application.routes.url_helpers.basecamp_authorization_callback_url)
   end
   
   def fetch_access_token!(verifier)
-    oauth_access_token = client.auth_code.get_token(verifier, redirect_uri: Rails.application.routes.url_helpers.basecamp_authorization_callback_url)
+    oauth_access_token = client.auth_code.get_token(verifier, type: 'web_server', redirect_uri: Rails.application.routes.url_helpers.basecamp_authorization_callback_url)
     
     save_token_details(oauth_access_token)
   end
@@ -35,7 +35,7 @@ class BasecampSession < ApplicationRecord
   end
   
   def request!(verb, url, body: nil, headers: {})
-    headers.merge!({ accept: 'application/json' })
+    headers.merge!({ accept: 'application/json', 'User-Agent': "Jake's Breadboarding PM Integration (jake@harvestprofit.com)" })
     headers.merge!({ 'Content-Type': 'application/json' }) if verb != :get
     options = { headers: headers }
     options[:body] = body.to_json if body
