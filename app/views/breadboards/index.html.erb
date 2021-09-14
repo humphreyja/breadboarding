@@ -1,6 +1,6 @@
 <% content_for :title, 'Your Breadboards' %>
 
-<% cache @breadboards do %>
+
 <h1>Breadboards</h1>
 
 <%- if @cycle %>
@@ -9,6 +9,8 @@
     <%= link_to 'Vote Now', basecamp_cycle_pitches_path(@cycle), class: 'primary' %>
   </section>
 <% end %>
+
+<% cache @breadboards do %>
 
 <%= link_to 'Start a new breadboard', new_breadboard_path, class: 'primary' %>
 
