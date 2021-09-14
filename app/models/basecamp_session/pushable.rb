@@ -23,5 +23,13 @@ module BasecampSession::Pushable
     
     cycle.published_id = JSON.parse(response.body)['id']
     cycle.save!
+    
+  rescue OAuth2::Error => e
+    if e.response.status == 404
+      cycle.published_id = nil
+      cycle.save!
+      
+      push_cycle_votes!(cycle)
+    end
   end
 end
