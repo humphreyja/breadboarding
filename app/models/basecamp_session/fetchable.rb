@@ -7,7 +7,7 @@ module BasecampSession::Fetchable
     messages = JSON.parse(response.body)
     
     while response.headers['Link'].present?
-      response = request!(:get, response.headers['Link'])
+      response = request!(:get, response.headers['Link'].split(';').first[1...-1])
       messages += JSON.parse(response.body)
     end
     
