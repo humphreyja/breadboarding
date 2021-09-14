@@ -1,0 +1,19 @@
+<%= turbo_frame_tag "pitch.#{pitch.id}" do %>
+  <article>
+    <div>
+      <h4><%= pitch.title %></h4>
+      <%= link_to 'View in Basecamp', pitch.link, target: '_blank' %>
+    </div>
+    <div>
+      <%- if pitch.voted?(current_user_id) %>
+        <%= form_for pitch, url: remove_vote_basecamp_cycle_pitch_path(cycle, pitch.id), method: :put do |f| %>
+          <%= f.submit 'Voted!' %>
+        <% end %>
+      <% else %>
+        <%= form_for pitch, url: vote_basecamp_cycle_pitch_path(cycle, pitch.id), method: :post do |f| %>
+          <%= f.submit '👍', class: 'hue-normalize' %>
+        <% end %>
+      <% end %>
+    </div>
+  </article>
+<% end %>

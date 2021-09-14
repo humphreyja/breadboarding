@@ -1,0 +1,9 @@
+<% content_for :title, "Cycle ##{@cycle.number} Pitches" %>
+
+<%= link_to '⟵ Back to Breadboards', breadboards_path, class: 'return' %>
+  
+<h1>Cycle #<%= @cycle.number %> Pitches</h1>
+
+<section class="narrow-contents pitches">
+  <%= render partial: 'basecamp/pitches/pitch', collection: @pitches, locals: { current_user_id: Current.user.id, cycle: @cycle } %>
+</section>

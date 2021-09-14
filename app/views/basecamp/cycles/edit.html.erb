@@ -1,0 +1,21 @@
+<% content_for :title, 'Edit Cycle' %>
+  
+<h1>Edit Cycle #<%= @cycle.number %></h1>
+<section class="narrow-contents narrow-form">
+  <%= form_for @cycle, url: basecamp_cycle_path(@cycle) do |f| %>
+    <%= render "shared/form_errors", object: f.object %>
+    <div class="field">
+      <%= f.label :number %>
+      <%= f.text_field :number %>
+    </div>
+    <div class="field">
+      <%= f.label :date, 'Pitch Meeting Date' %>
+      <%= f.text_field :date %>
+    </div>
+    
+    <div class="actions">
+      <%= f.submit 'Save', class: 'primary' %>
+    </div>
+    
+  <% end %>
+</section>

@@ -30,4 +30,20 @@ Rails.application.routes.draw do
     get :delete_request, on: :member
     resources :places, only: [:new, :edit, :create, :update, :destroy]
   end
+  
+  namespace :basecamp, path: 'basecamp' do
+    resource :session
+    
+    resources :cycles do
+      get :publish, on: :member
+      get :fetch_pitches, on: :member
+      
+      resources :pitches, only: [:index] do
+        post :vote, on: :member
+        put :remove_vote, on: :member
+      end
+    end
+    
+    get :authorization_callback, to: 'authorization_callbacks#edit'
+  end
 end

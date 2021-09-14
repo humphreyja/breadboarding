@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_30_004127) do
+ActiveRecord::Schema.define(version: 2021_09_14_005815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,21 @@ ActiveRecord::Schema.define(version: 2021_03_30_004127) do
     t.index ["place_id"], name: "index_affordances_on_place_id"
   end
 
+  create_table "basecamp_sessions", force: :cascade do |t|
+    t.string "token"
+    t.boolean "authenticated", default: false
+    t.bigint "account_id"
+    t.bigint "pitch_project_id"
+    t.bigint "pitch_deck_id"
+    t.bigint "pitch_category_id"
+    t.bigint "user_id"
+    t.bigint "domain_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["domain_id"], name: "index_basecamp_sessions_on_domain_id"
+    t.index ["user_id"], name: "index_basecamp_sessions_on_user_id"
+  end
+
   create_table "breadboards", force: :cascade do |t|
     t.string "name"
     t.bigint "user_id"
@@ -32,6 +47,17 @@ ActiveRecord::Schema.define(version: 2021_03_30_004127) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["domain_id"], name: "index_breadboards_on_domain_id"
     t.index ["user_id"], name: "index_breadboards_on_user_id"
+  end
+
+  create_table "cycles", force: :cascade do |t|
+    t.integer "number", null: false
+    t.bigint "published_id"
+    t.bigint "domain_id"
+    t.date "date", null: false
+    t.jsonb "voting_data_hash"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["domain_id"], name: "index_cycles_on_domain_id"
   end
 
   create_table "domains", force: :cascade do |t|
@@ -70,8 +96,11 @@ ActiveRecord::Schema.define(version: 2021_03_30_004127) do
 
   add_foreign_key "affordances", "places"
   add_foreign_key "affordances", "places", column: "connection_id"
+  add_foreign_key "basecamp_sessions", "domains"
+  add_foreign_key "basecamp_sessions", "users"
   add_foreign_key "breadboards", "domains"
   add_foreign_key "breadboards", "users"
+  add_foreign_key "cycles", "domains"
   add_foreign_key "places", "breadboards"
   add_foreign_key "users", "domains"
 end

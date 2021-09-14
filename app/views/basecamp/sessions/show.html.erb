@@ -1,0 +1,25 @@
+<% content_for :title, 'Connect to Basecamp' %>
+  
+<%= link_to '⟵ Back to Breadboards', breadboards_path, class: 'return' %>
+<h1>Connect to Basecamp</h1>
+<section class="narrow-contents">
+  <h4>You are currently <%= @basecamp_session.authenticated? ? '' : 'not '%>connected to Basecamp.</h4>
+  
+  <br />
+  <%= link_to 'Edit Pitch Deck Information', edit_basecamp_session_path, class: 'primary' %>
+  
+  <%- if @basecamp_session.authenticated? %>
+    <br />
+    <br />
+    <%= link_to "New Cycle", new_basecamp_cycle_path, class: 'secondary' %>
+    <ul>
+      <% @basecamp_session.domain.cycles.first(5).each do |cycle| %>
+        <li><%= link_to "Cycle ##{cycle.number}", basecamp_cycle_path(cycle) %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</section>
+<br />
+<section class="narrow-contents">
+  <%= link_to 'Connect Basecamp', @basecamp_session.fetch_request_token_url, class: 'secondary' %>
+</section>

@@ -3,6 +3,7 @@ class BreadboardsController < ApplicationController
   
   def index
     @breadboards = Current.user.breadboards
+    @cycle = Current.user.domain.cycles.active.first
   end
   
   def new

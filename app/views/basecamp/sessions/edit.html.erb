@@ -1,0 +1,30 @@
+<% content_for :title, 'Edit Basecamp Connection' %>
+  
+<h1>Edit Basecamp Pitch Settings</h1>
+<section class="narrow-contents narrow-form">
+  <%= form_for @basecamp_session, url: basecamp_session_path, method: :put do |f| %>
+    <%= render "shared/form_errors", object: f.object %>
+    <h2>Pitch Settings</h2>
+    <div class="field">
+      <%= f.label :account_id, 'Account ID' %>
+      <%= f.text_field :account_id %>
+    </div>
+    <div class="field">
+      <%= f.label :pitch_project_id, 'Project ID' %>
+      <%= f.text_field :pitch_project_id %>
+    </div>
+    <div class="field">
+      <%= f.label :pitch_deck_id, 'Message Board ID' %>
+      <%= f.text_field :pitch_deck_id %>
+    </div>
+    <div class="field">
+      <%= f.label :pitch_category_id, 'Category ID' %>
+      <%= f.text_field :pitch_category_id %>
+    </div>
+    
+    <div class="actions">
+      <%= f.submit 'Save', class: 'primary' %>
+    </div>
+    
+  <% end %>
+</section>

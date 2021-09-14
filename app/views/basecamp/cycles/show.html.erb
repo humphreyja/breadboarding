@@ -1,0 +1,35 @@
+<% content_for :title, "Cycle ##{@cycle.number}" %>
+
+<%= link_to '⟵ Back to Basecamp Settings', basecamp_session_path, class: 'return' %>
+  
+<h1>Cycle #<%= @cycle.number %></h1>
+<section class="narrow-contents">
+  <p>
+    Pitch Meeting Scheduled for: <%= @cycle.date.strftime('%B %d, %Y') %>
+  </p>
+  
+  <div>
+  <%= link_to 'Edit', edit_basecamp_cycle_path(@cycle) %>
+  <%= form_for @cycle, url: basecamp_cycle_path(@cycle), method: :delete, html: { style: 'display: inline', data: { turbo: false } } do |f| %>
+    <%= f.submit 'Delete', class: 'destroy' %>
+  <% end %>
+</div>
+  <br />
+  <hr>
+  <%= link_to 'Fetch Pitches!', fetch_pitches_basecamp_cycle_path(@cycle), class: 'primary' %>
+  <br />
+  <br />
+  <%= link_to 'Publish Voting Results', publish_basecamp_cycle_path(@cycle), class: 'secondary' %>
+</section>
+
+<%- if @cycle.pitches.any? %>
+  <br />
+  <section class="narrow-contents">
+    <h2>Pitches</h2>
+    <ul>
+      <% @cycle.pitches.each do |pitch| %>
+        <li><%= pitch.title %></li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>

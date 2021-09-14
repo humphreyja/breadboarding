@@ -33,6 +33,7 @@
         </summary>
         <div class="left up">
           <h4>Signed in as <%= current_user.email %></h4>
+          <%= link_to 'Basecamp Connection', basecamp_session_path, style: 'margin-top: 8px;margin-bottom:8px' %>
           <br />
           <%= render 'themes/theme_controller' %>
           

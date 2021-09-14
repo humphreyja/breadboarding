@@ -3,6 +3,13 @@
 <% cache @breadboards do %>
 <h1>Breadboards</h1>
 
+<%- if @cycle %>
+  <section class="announcement">
+    <h4>Cast your votes for pitches in Cycle #<%= @cycle.number%></h4>
+    <%= link_to 'Vote Now', basecamp_cycle_pitches_path(@cycle), class: 'primary' %>
+  </section>
+<% end %>
+
 <%= link_to 'Start a new breadboard', new_breadboard_path, class: 'primary' %>
 
 <div class="preview-grid">
