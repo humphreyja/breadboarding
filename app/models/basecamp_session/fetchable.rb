@@ -11,7 +11,7 @@ module BasecampSession::Fetchable
       messages += JSON.parse(response.body)
     end
     
-    messages.filter { |message| message.dig('category', 'id') == pitch_category_id }
+    messages.filter { |message| message['status'] == 'active' && message.dig('category', 'id') == pitch_category_id }
   end
   
   class MockResponse
