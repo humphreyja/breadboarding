@@ -12,14 +12,13 @@ module BasecampSession::Pushable
       status: :active
     }
     
-    publish_action_endpoint = ''
     publish_action = :post
+    url = "#{api_url}/buckets/#{pitch_project_id}/message_boards/#{pitch_deck_id}/messages.json"
     if cycle.published?
-      publish_action_endpoint = "/#{cycle.published_id}"
       publish_action = :put
+      url = "#{api_url}/buckets/#{pitch_project_id}/messages/#{cycle.published_id}.json"
     end
-    
-    url = "#{api_url}/buckets/#{pitch_project_id}/message_boards/#{pitch_deck_id}/messages#{publish_action_endpoint}.json"
+
     response = request!(publish_action, url, body: payload)
     
     cycle.published_id = JSON.parse(response.body)['id']
