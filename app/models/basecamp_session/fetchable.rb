@@ -1,8 +1,8 @@
 module BasecampSession::Fetchable
   def fetch_pitches
-    # url = "#{api_url}/buckets/#{pitch_project_id}/message_boards/#{pitch_deck_id}/messages.json?category_id=#{pitch_category_id}"
-    # response = request!(:get, url)
-    response = MockResponse.new
+    url = "#{api_url}/buckets/#{pitch_project_id}/message_boards/#{pitch_deck_id}/messages.json?category_id=#{pitch_category_id}"
+    response = request!(:get, url)
+    # response = MockResponse.new
     JSON.parse(response.body)
   end
   
