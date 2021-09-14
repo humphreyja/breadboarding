@@ -125,3 +125,5 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 end
+
+Rails.application.routes.default_url_options = { host: ENV.fetch('HOST', "#{ENV['HEROKU_APP_NAME']}.herokuapp.com") }
